@@ -5,45 +5,14 @@ $init = <<SCRIPT
 if [ ! -f ~/runonce ]
 then
   ## Init
-  locale-gen en_CA.UTF-8 # Feel free to change it to your locale
+  locale-gen en_US.UTF-8 # Feel free to change it to your locale
   sed -i -e 's/\/archive.ubuntu.com/\/mirrors.kernel.org/' /etc/apt/sources.list
   aptitude update
   aptitude install -yq git-core libpcap-dev libsqlite3-dev gcc make
 
-  ## Mininet, POX, OVSK, Wireshark dissector
+  ## Mininet with ofsoftswitch13
   git clone git://github.com/mininet/mininet
-  sudo -iu vagrant mininet/util/install.sh
-  sudo -iu vagrant mininet/util/install.sh -tc
-
-  ## Trema
-  aptitude install -yq gcc make ruby rubygems ruby-dev libpcap-dev libsqlite3-dev \
-     libglib2.0-dev flex bison libgtkmm-2.4-dev
-  ## Option: gem
-  gem install trema --no-ri --no-rdoc
-  ## Option: fom source
-  # gem install bundler --no-ri --no-rdoc
-  # git clone https://github.com/trema/trema
-  # wget http://wiresharkdownloads.riverbed.com/wireshark/src/wireshark-1.8.10.tar.bz2
-  # tar xf wireshark-1.8.10.tar.bz2 && rm wireshark-1.8.10.tar.bz2
-  # cd trema
-  # git checkout master
-  # bundle install
-  # ./build.rb
-  # cd src/tremashark/plugin/
-  # ln -s ~/wireshark-1.8.10 wireshark
-  # cd wireshark && ./configure
-  # cd ../packet-trema && make
-  # sudo -iu vagrant mkdir -p ~/.wireshark/plugins
-  # sudo -iu vagrant cp packet-trema.so ~/.wireshark/plugins
-  # sudo -iu vagrant cp ../user_dlts ~/.wireshark/
-
-  ## FlowVisor
-  wget http://updates.onlab.us/GPG-KEY-ONLAB
-  apt-key add GPG-KEY-ONLAB
-  echo "deb http://updates.onlab.us/debian stable/" >> /etc/apt/sources.list
-  aptitude update
-  aptitude install -yq flowvisor
-  #sudo -u flowvisor fvconfig generate /dev/null
+  sudo -iu vagrant mininet/util/install.sh -n3fxw
 
   touch ~/runonce
 fi

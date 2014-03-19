@@ -6,10 +6,8 @@ OpenFlow playground in a VM.
 Included tools are:
 
 - Mininet
-- POX
-- Wireshark dissector
-- Trema
-- Flowvisor
+- OpenFlow 1.3 Switch
+- NOX OpenFlow 1.3 Controller
 
 ## Usage
 
